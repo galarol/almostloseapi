@@ -9,7 +9,6 @@ import asyncio
 import sqlite3
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-from pyngrok import ngrok, conf
 
 load_dotenv()
 
@@ -322,16 +321,6 @@ async def start_web_server():
     
     # Ждём 2 секунды чтобы сервер точно запустился
     await asyncio.sleep(2)
-    
-    # Запуск ngrok туннеля
-    try:
-        conf.get_default().auth_token = NGROK_TOKEN
-        public_url = ngrok.connect(15676, "http")
-        print(f"\n{'='*60}")
-        print(f"🌐 ВАШ ПУБЛИЧНЫЙ URL: {public_url}")
-        print(f"{'='*60}\n")
-    except Exception as e:
-        print(f"❌ Ошибка ngrok: {e}")
 
 async def main():
     asyncio.create_task(start_web_server())
